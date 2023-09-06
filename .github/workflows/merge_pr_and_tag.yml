@@ -14,3 +14,13 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push Download Defs Image
+        uses: ./.github/actions/build_and_push
+        with:
+          image_name: download-defs
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+      - name: Build and Push Scan Image
+        uses: ./.github/actions/build_and_push
+        with:
+          image_name: scan
+          tag: ${{ steps.tag_version.outputs.new_tag }}
