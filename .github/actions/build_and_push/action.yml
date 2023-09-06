@@ -23,8 +23,12 @@ runs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: ${{ inputs.image_name}}
+        images: ghcr.io/schueco-japan/clamscan-${{ inputs.image_name}}
         tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
           type=sha
     - name: Cache Docker layers
       uses: actions/cache@v2

@@ -6,12 +6,17 @@ on:
       - 'feature/release_image'
 
 jobs:
-  docker:
+  release:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+         - download-defs
+         - scan
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/build_and_push
         with:
-          image_name: ghcr.io/schueco-japan/clamscan-download-defs-lambda
+          image_name: matrix.image
