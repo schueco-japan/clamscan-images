@@ -25,8 +25,6 @@ runs:
       with:
         images: ghcr.io/schueco-japan/clamscan-${{ inputs.image_name}}
         tags: |
-          type=ref,event=branch
-          type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=sha
