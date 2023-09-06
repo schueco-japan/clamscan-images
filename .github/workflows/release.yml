@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup
+      - name: Build and Push
         uses: ./.github/actions/build_and_push
         with:
           image_name: ${{matrix.directory}}
