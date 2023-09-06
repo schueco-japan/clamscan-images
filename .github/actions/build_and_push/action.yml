@@ -1,5 +1,5 @@
-name: "Setup"
-description: "Setup"
+name: "build_and_push"
+description: "Build and Push"
 
 inputs:
   image_name:

@@ -12,6 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./.github/actions/build_and_push
         with:
           image_name: ghcr.io/schueco-japan/clamscan-download-defs-lambda
