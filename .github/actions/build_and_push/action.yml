@@ -4,6 +4,8 @@ description: "Build and Push"
 inputs:
   image_name:
     description: The name of image
+  tag:
+    description: The version tag
 
 runs:
   using: "composite"
