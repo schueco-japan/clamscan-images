@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image:
+        directory:
          - download-defs
          - scan
     steps:
@@ -19,4 +19,4 @@ jobs:
       - name: Setup
         uses: ./.github/actions/build_and_push
         with:
-          image_name: matrix.image
+          image_name: ${{matrix.directory}}
