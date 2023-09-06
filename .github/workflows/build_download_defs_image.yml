@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'feature/release_image'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/schueco-japan/clamscan-download-defs-lambda
+          tags: |
+            type=sha
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./download_defs
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          platforms: linux/amd64,linux/arm64
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
