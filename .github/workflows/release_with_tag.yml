@@ -2,8 +2,8 @@ name: release_with_tag
 
 on:
   push:
-    branches:
-      - 'feature/release_image'
+    tags:
+      - 'v*'
 
 jobs:
   release:
